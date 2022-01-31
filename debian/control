@@ -1,0 +1,32 @@
+Source: php-phpseclib3
+Section: php
+Priority: optional
+Maintainer: Debian PHP PEAR Maintainers <pkg-php-pear@lists.alioth.debian.org>
+Uploaders: David Prévot <taffit@debian.org>
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-phpcomposer,
+               php-constant-time,
+               php-gmp,
+               php-random-compat,
+               phpab,
+               phpunit,
+               pkg-php-tools (>= 1.41~)
+Standards-Version: 4.6.0
+Homepage: http://phpseclib.sourceforge.net/
+Vcs-Git: https://salsa.debian.org/php-team/pear/phpseclib.git -b debian/latest
+Vcs-Browser: https://salsa.debian.org/php-team/pear/phpseclib
+Rules-Requires-Root: no
+
+Package: php-phpseclib3
+Architecture: all
+Depends: ${misc:Depends}, ${phpcomposer:Debian-require}
+Suggests: ${phpcomposer:Debian-suggest}
+Replaces: ${phpcomposer:Debian-replace}
+Breaks: ${phpcomposer:Debian-conflict}, ${phpcomposer:Debian-replace}
+Provides: php-phpseclib (= ${binary:Version}),
+          php-seclib (= ${binary:Version}),
+          ${phpcomposer:Debian-provide}
+Description: implementations of an arbitrary-precision integer arithmetic library
+ The PHP Secure Communications Library are fully PKCS#1 (v2.1) compliant
+ RSA, DES, 3DES, RC4, Rijndael, AES, Blowfish, Twofish, SSH-1, SSH-2, SFTP, and
+ X.509 implementations.

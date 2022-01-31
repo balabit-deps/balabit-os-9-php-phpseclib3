@@ -1,0 +1,294 @@
+From: =?utf-8?q?David_Pr=C3=A9vot?= <taffit@debian.org>
+Date: Mon, 12 Aug 2019 07:30:13 -1000
+Subject: Compatibility with recent PHPUnit (8)
+
+---
+ tests/Functional/Net/SFTPLargeFileTest.php      |  2 +-
+ tests/Functional/Net/SFTPStreamTest.php         |  2 +-
+ tests/Functional/Net/SFTPTestCase.php           |  4 ++--
+ tests/Functional/Net/SFTPUserStoryTest.php      |  2 +-
+ tests/Functional/Net/SSH2AgentTest.php          |  2 +-
+ tests/PhpseclibTestCase.php                     | 14 +++++++-------
+ tests/Unit/Crypt/AES/EvalTest.php               |  2 +-
+ tests/Unit/Crypt/AES/McryptTest.php             |  2 +-
+ tests/Unit/Crypt/AES/OpenSSLTest.php            |  2 +-
+ tests/Unit/Crypt/AES/PurePHPTest.php            |  2 +-
+ tests/Unit/Crypt/RSA/LoadKeyTest.php            |  2 +-
+ tests/Unit/Math/BigInteger/BCMathTest.php       |  2 +-
+ tests/Unit/Math/BigInteger/GMPTest.php          |  2 +-
+ tests/Unit/Math/BigInteger/PHP32Test.php        |  2 +-
+ tests/Unit/Math/BigInteger/PHP64OpenSSLTest.php |  2 +-
+ tests/Unit/Math/BigInteger/PHP64Test.php        |  2 +-
+ 16 files changed, 23 insertions(+), 23 deletions(-)
+
+diff --git a/tests/Functional/Net/SFTPLargeFileTest.php b/tests/Functional/Net/SFTPLargeFileTest.php
+index 68c4014..638b71a 100644
+--- a/tests/Functional/Net/SFTPLargeFileTest.php
++++ b/tests/Functional/Net/SFTPLargeFileTest.php
+@@ -11,7 +11,7 @@ use phpseclib3\Net\SFTP;
+ 
+ class Functional_Net_SFTPLargeFileTest extends Functional_Net_SFTPTestCase
+ {
+-    public static function setUpBeforeClass()
++    public static function setUpBeforeClass(): void
+     {
+         if (!extension_loaded('mcrypt') && !extension_loaded('openssl')) {
+             self::markTestSkipped('This test depends on mcrypt or openssl for performance.');
+diff --git a/tests/Functional/Net/SFTPStreamTest.php b/tests/Functional/Net/SFTPStreamTest.php
+index 97dce6f..14a5b26 100644
+--- a/tests/Functional/Net/SFTPStreamTest.php
++++ b/tests/Functional/Net/SFTPStreamTest.php
+@@ -10,7 +10,7 @@ use phpseclib3\Net\SFTP\Stream;
+ 
+ class Functional_Net_SFTPStreamTest extends Functional_Net_SFTPTestCase
+ {
+-    public static function setUpBeforeClass()
++    public static function setUpBeforeClass(): void
+     {
+         Stream::register();
+         parent::setUpBeforeClass();
+diff --git a/tests/Functional/Net/SFTPTestCase.php b/tests/Functional/Net/SFTPTestCase.php
+index 9805fc6..8585dc3 100644
+--- a/tests/Functional/Net/SFTPTestCase.php
++++ b/tests/Functional/Net/SFTPTestCase.php
+@@ -19,7 +19,7 @@ abstract class Functional_Net_SFTPTestCase extends PhpseclibFunctionalTestCase
+     protected $sftp;
+     protected $scratchDir;
+ 
+-    public function setUp()
++    public function setUp(): void
+     {
+         parent::setUp();
+         $this->scratchDir = uniqid('phpseclib-sftp-scratch-');
+@@ -33,7 +33,7 @@ abstract class Functional_Net_SFTPTestCase extends PhpseclibFunctionalTestCase
+         $this->assertTrue($this->sftp->chdir($this->scratchDir));
+     }
+ 
+-    public function tearDown()
++    public function tearDown(): void
+     {
+         if ($this->sftp) {
+             $this->sftp->chdir($this->getEnv('SSH_HOME'));
+diff --git a/tests/Functional/Net/SFTPUserStoryTest.php b/tests/Functional/Net/SFTPUserStoryTest.php
+index 56b2809..358f4b8 100644
+--- a/tests/Functional/Net/SFTPUserStoryTest.php
++++ b/tests/Functional/Net/SFTPUserStoryTest.php
+@@ -15,7 +15,7 @@ class Functional_Net_SFTPUserStoryTest extends PhpseclibFunctionalTestCase
+     static protected $exampleDataLength;
+     static protected $buffer;
+ 
+-    public static function setUpBeforeClass()
++    public static function setUpBeforeClass(): void
+     {
+         parent::setUpBeforeClass();
+ 
+diff --git a/tests/Functional/Net/SSH2AgentTest.php b/tests/Functional/Net/SSH2AgentTest.php
+index 99aaa95..e8ca4aa 100644
+--- a/tests/Functional/Net/SSH2AgentTest.php
++++ b/tests/Functional/Net/SSH2AgentTest.php
+@@ -11,7 +11,7 @@ use phpseclib3\System\SSH\Agent;
+ 
+ class Functional_Net_SSH2AgentTest extends PhpseclibFunctionalTestCase
+ {
+-    public static function setUpBeforeClass()
++    public static function setUpBeforeClass(): void
+     {
+         if (!isset($_SERVER['SSH_AUTH_SOCK'])) {
+             self::markTestSkipped(
+diff --git a/tests/PhpseclibTestCase.php b/tests/PhpseclibTestCase.php
+index 3eaff1c..e34666d 100644
+--- a/tests/PhpseclibTestCase.php
++++ b/tests/PhpseclibTestCase.php
+@@ -9,7 +9,7 @@ abstract class PhpseclibTestCase extends PHPUnit\Framework\TestCase
+ {
+     protected $tempFilesToUnlinkOnTearDown = [];
+ 
+-    public function tearDown()
++    public function tearDown(): void
+     {
+         foreach ($this->tempFilesToUnlinkOnTearDown as $filename) {
+             if (!file_exists($filename) || unlink($filename)) {
+@@ -119,7 +119,7 @@ abstract class PhpseclibTestCase extends PHPUnit\Framework\TestCase
+     }
+ 
+     // assertIsArray was not introduced until PHPUnit 8
+-    public static function assertIsArray($actual, $message = '')
++    public static function assertIsArray($actual, $message = ''): void
+     {
+         if (method_exists('\PHPUnit\Framework\TestCase', 'assertIsArray')) {
+             parent::assertIsArray($actual, $message);
+@@ -130,7 +130,7 @@ abstract class PhpseclibTestCase extends PHPUnit\Framework\TestCase
+     }
+ 
+     // assertIsString was not introduced until PHPUnit 8
+-    public static function assertIsString($actual, $message = '')
++    public static function assertIsString($actual, $message = ''): void
+     {
+         if (method_exists('\PHPUnit\Framework\TestCase', 'assertIsString')) {
+             parent::assertIsString($actual, $message);
+@@ -141,7 +141,7 @@ abstract class PhpseclibTestCase extends PHPUnit\Framework\TestCase
+     }
+ 
+     // assertIsResource was not introduced until PHPUnit 8
+-    public static function assertIsResource($actual, $message = '')
++    public static function assertIsResource($actual, $message = ''): void
+     {
+         if (method_exists('\PHPUnit\Framework\TestCase', 'assertIsResource')) {
+             parent::assertIsResource($actual, $message);
+@@ -152,7 +152,7 @@ abstract class PhpseclibTestCase extends PHPUnit\Framework\TestCase
+     }
+ 
+     // assertIsObject was not introduced until PHPUnit 8
+-    public static function assertIsObject($actual, $message = '')
++    public static function assertIsObject($actual, $message = ''): void
+     {
+         if (method_exists('\PHPUnit\Framework\TestCase', 'assertIsObject')) {
+             parent::assertIsObject($actual, $message);
+@@ -163,7 +163,7 @@ abstract class PhpseclibTestCase extends PHPUnit\Framework\TestCase
+     }
+ 
+     // assertContains is deprecated for strings in PHPUnit 8
+-    public static function assertStringContainsString($needle, $haystack, $message = '')
++    public static function assertStringContainsString($needle, $haystack, $message = ''): void
+     {
+         if (method_exists('\PHPUnit\Framework\TestCase', 'assertStringContainsString')) {
+             parent::assertStringContainsString($needle, $haystack, $message);
+@@ -174,7 +174,7 @@ abstract class PhpseclibTestCase extends PHPUnit\Framework\TestCase
+     }
+ 
+     // assertNotContains is deprecated for strings in PHPUnit 8
+-    public static function assertStringNotContainsString($needle, $haystack, $message = '')
++    public static function assertStringNotContainsString($needle, $haystack, $message = ''): void
+     {
+         if (method_exists('\PHPUnit\Framework\TestCase', 'assertStringContainsString')) {
+             parent::assertStringNotContainsString($needle, $haystack, $message);
+diff --git a/tests/Unit/Crypt/AES/EvalTest.php b/tests/Unit/Crypt/AES/EvalTest.php
+index 5b0ad84..ca0cfb0 100644
+--- a/tests/Unit/Crypt/AES/EvalTest.php
++++ b/tests/Unit/Crypt/AES/EvalTest.php
+@@ -9,7 +9,7 @@ use phpseclib3\Crypt\Common\BlockCipher;
+ 
+ class Unit_Crypt_AES_EvalTest extends Unit_Crypt_AES_TestCase
+ {
+-    protected function setUp()
++    protected function setUp(): void
+     {
+         $this->engine = 'Eval';
+     }
+diff --git a/tests/Unit/Crypt/AES/McryptTest.php b/tests/Unit/Crypt/AES/McryptTest.php
+index dcba543..f0741de 100644
+--- a/tests/Unit/Crypt/AES/McryptTest.php
++++ b/tests/Unit/Crypt/AES/McryptTest.php
+@@ -9,7 +9,7 @@ use phpseclib3\Crypt\Common\BlockCipher;
+ 
+ class Unit_Crypt_AES_McryptTest extends Unit_Crypt_AES_TestCase
+ {
+-    protected function setUp()
++    protected function setUp(): void
+     {
+         $this->engine = 'mcrypt';
+     }
+diff --git a/tests/Unit/Crypt/AES/OpenSSLTest.php b/tests/Unit/Crypt/AES/OpenSSLTest.php
+index cb22c79..cd016c9 100644
+--- a/tests/Unit/Crypt/AES/OpenSSLTest.php
++++ b/tests/Unit/Crypt/AES/OpenSSLTest.php
+@@ -9,7 +9,7 @@ use phpseclib3\Crypt\Common\BlockCipher;
+ 
+ class Unit_Crypt_AES_OpenSSLTest extends Unit_Crypt_AES_TestCase
+ {
+-    protected function setUp()
++    protected function setUp(): void
+     {
+         $this->engine = 'OpenSSL';
+     }
+diff --git a/tests/Unit/Crypt/AES/PurePHPTest.php b/tests/Unit/Crypt/AES/PurePHPTest.php
+index 4349508..76406d9 100644
+--- a/tests/Unit/Crypt/AES/PurePHPTest.php
++++ b/tests/Unit/Crypt/AES/PurePHPTest.php
+@@ -9,7 +9,7 @@ use phpseclib3\Crypt\Common\BlockCipher;
+ 
+ class Unit_Crypt_AES_PurePHPTest extends Unit_Crypt_AES_TestCase
+ {
+-    protected function setUp()
++    protected function setUp(): void
+     {
+         $this->engine = 'PHP';
+     }
+diff --git a/tests/Unit/Crypt/RSA/LoadKeyTest.php b/tests/Unit/Crypt/RSA/LoadKeyTest.php
+index d568f08..4a98130 100644
+--- a/tests/Unit/Crypt/RSA/LoadKeyTest.php
++++ b/tests/Unit/Crypt/RSA/LoadKeyTest.php
+@@ -20,7 +20,7 @@ use phpseclib3\Exception\NoKeyLoadedException;
+ 
+ class Unit_Crypt_RSA_LoadKeyTest extends PhpseclibTestCase
+ {
+-    public static function setUpBeforeClass()
++    public static function setUpBeforeClass(): void
+     {
+         PuTTY::setComment('phpseclib-generated-key');
+         OpenSSH::setComment('phpseclib-generated-key');
+diff --git a/tests/Unit/Math/BigInteger/BCMathTest.php b/tests/Unit/Math/BigInteger/BCMathTest.php
+index 1aab9eb..3dc80ae 100644
+--- a/tests/Unit/Math/BigInteger/BCMathTest.php
++++ b/tests/Unit/Math/BigInteger/BCMathTest.php
+@@ -9,7 +9,7 @@ use \phpseclib3\Math\BigInteger\Engines\BCMath;
+ 
+ class Unit_Math_BigInteger_BCMathTest extends Unit_Math_BigInteger_TestCase
+ {
+-    public static function setUpBeforeClass()
++    public static function setUpBeforeClass(): void
+     {
+         if (!BCMath::isValidEngine()) {
+             self::markTestSkipped('BCMath extension is not available.');
+diff --git a/tests/Unit/Math/BigInteger/GMPTest.php b/tests/Unit/Math/BigInteger/GMPTest.php
+index bcbecdc..b30b544 100644
+--- a/tests/Unit/Math/BigInteger/GMPTest.php
++++ b/tests/Unit/Math/BigInteger/GMPTest.php
+@@ -9,7 +9,7 @@ use \phpseclib3\Math\BigInteger\Engines\GMP;
+ 
+ class Unit_Math_BigInteger_GMPTest extends Unit_Math_BigInteger_TestCase
+ {
+-    public static function setUpBeforeClass()
++    public static function setUpBeforeClass(): void
+     {
+         if (!GMP::isValidEngine()) {
+             self::markTestSkipped('GNU Multiple Precision (GMP) extension is not available.');
+diff --git a/tests/Unit/Math/BigInteger/PHP32Test.php b/tests/Unit/Math/BigInteger/PHP32Test.php
+index c9b3cfd..05925f4 100644
+--- a/tests/Unit/Math/BigInteger/PHP32Test.php
++++ b/tests/Unit/Math/BigInteger/PHP32Test.php
+@@ -9,7 +9,7 @@ use \phpseclib3\Math\BigInteger\Engines\PHP32;
+ 
+ class Unit_Math_BigInteger_PHP32Test extends Unit_Math_BigInteger_TestCase
+ {
+-    public static function setUpBeforeClass()
++    public static function setUpBeforeClass(): void
+     {
+         if (version_compare(PHP_VERSION, '7.0.0') < 0) {
+             self::markTestSkipped('32-bit integers slow things down too much on PHP 5.6');
+diff --git a/tests/Unit/Math/BigInteger/PHP64OpenSSLTest.php b/tests/Unit/Math/BigInteger/PHP64OpenSSLTest.php
+index a49eeca..1590efa 100644
+--- a/tests/Unit/Math/BigInteger/PHP64OpenSSLTest.php
++++ b/tests/Unit/Math/BigInteger/PHP64OpenSSLTest.php
+@@ -9,7 +9,7 @@ use \phpseclib3\Math\BigInteger\Engines\PHP64;
+ 
+ class Unit_Math_BigInteger_PHP64OpenSSLTest extends Unit_Math_BigInteger_TestCase
+ {
+-    public static function setUpBeforeClass()
++    public static function setUpBeforeClass(): void
+     {
+         if (!PHP64::isValidEngine()) {
+             self::markTestSkipped('64-bit integers are not available.');
+diff --git a/tests/Unit/Math/BigInteger/PHP64Test.php b/tests/Unit/Math/BigInteger/PHP64Test.php
+index f1c8909..1dd7457 100644
+--- a/tests/Unit/Math/BigInteger/PHP64Test.php
++++ b/tests/Unit/Math/BigInteger/PHP64Test.php
+@@ -9,7 +9,7 @@ use \phpseclib3\Math\BigInteger\Engines\PHP64;
+ 
+ class Unit_Math_BigInteger_PHP64Test extends Unit_Math_BigInteger_TestCase
+ {
+-    public static function setUpBeforeClass()
++    public static function setUpBeforeClass(): void
+     {
+         if (!PHP64::isValidEngine()) {
+             self::markTestSkipped('64-bit integers are not available.');

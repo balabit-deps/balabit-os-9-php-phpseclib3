@@ -1,0 +1,661 @@
+php-phpseclib3 (3.0.13-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * SSH2: make login() return false if no valid auth methods are found
+  * SSH2: show a more helpful error message when logging in with pubkey
+  * Salsa20: fix PHP 5.6 error
+  * SSH2: rsa-sha2-256 and rsa-sha2-512 sigs weren't verifying
+  * Crypt/Base: add OFB8 as a new mode
+  * CHANGELOG: add 2.0.36 release
+
+  [ David Anderson ]
+  * Check phpinfo() available before using it
+
+  [ PetrP ]
+  * SFTP: fix chgrp() for version < 4
+
+  [ Jack Worman ]
+  * Fixed psalm level 6 errors in phpseclib/Net/
+
+ -- David Prévot <taffit@debian.org>  Sun, 30 Jan 2022 22:31:32 -0400
+
+php-phpseclib3 (3.0.12-2) unstable; urgency=medium
+
+  * Fix tests for PHP 8.1 (Closes: #1000647)
+
+ -- David Prévot <taffit@debian.org>  Wed, 12 Jan 2022 12:10:59 -0400
+
+php-phpseclib3 (3.0.12-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * SSH2: add "smart multi factor" login mode (enabled by default)
+  * SFTP: getSupportedVersions() call didn't work
+  * SSH2: error out when no data is received from the server
+  * SFTP: don't attempt to parse unsupported attributes
+  * EC: error out when scalar is out of range
+  * RSA/Keys/Raw: add support for private keys
+  * SymmetricKey: add getMode()
+  * CHANGELOG: add 2.0.35 release
+
+ -- David Prévot <taffit@debian.org>  Mon, 29 Nov 2021 10:08:24 -0400
+
+php-phpseclib3 (3.0.11-3) unstable; urgency=medium
+
+  * Skip test failing on 32-bit architectures
+
+ -- David Prévot <taffit@debian.org>  Fri, 26 Nov 2021 11:43:59 -0400
+
+php-phpseclib3 (3.0.11-2) unstable; urgency=medium
+
+  * Revert "Ensure openssl is installed during CI"
+  * Install minimal openssl.cnf
+
+ -- David Prévot <taffit@debian.org>  Wed, 24 Nov 2021 14:37:52 -0400
+
+php-phpseclib3 (3.0.11-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * RSA: ssh-keygen -yf private.key fails if \r is present
+  * SSH2: add support for zlib and zlib@openssh.com compression
+  * CHANGELOG: add 2.0.34 release
+
+  [ Nick Lassonde ]
+  * add option to allow arbitrary length packets, for servers like OpenText
+    which sends extremely long directory listings
+
+  [ Christopher Davis ]
+  * Don't Use Array Unpackage for Status Code -> Error
+
+  [ David Prévot ]
+  * Ensure openssl is installed during CI
+
+ -- David Prévot <taffit@debian.org>  Thu, 28 Oct 2021 13:23:33 -0400
+
+php-phpseclib3 (3.0.10-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * SFTP: don't check SFTP packet size after SFTP initialization
+  * ASN1: return false when not enough bytes are available
+  * SFTP: return false if get_channel_packet returns false
+  * PrimeField: plug memory leaks
+  * Serializable is being deprecated in PHP 8.1
+  * AsymmetricKey: make more methods static
+  * CHANGELOG: add 2.0.33 release
+
+  [ Nick Lassonde ]
+  * SFTP: timeout during  _init_sftp_connection should be a failure
+
+  [ Claude Pache ]
+  * PublicKeyLoader: make all methods static
+
+  [ David Prévot ]
+  * Update standards version to 4.6.0, no changes needed.
+
+ -- David Prévot <taffit@debian.org>  Thu, 07 Oct 2021 17:01:12 -0400
+
+php-phpseclib3 (3.0.9-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * CHANGELOG: add 3.0.8 release
+  * SFTP: reopen channel on channel closure
+  * SSH2: timeout would occasionally infinitely loop
+  * SSH2: fix issue with key re-exchange
+  * SSH2: fix PHP7.4 errors about accessing bool as string
+  * X509: signing with pw protected PSS keys yielded errors
+  * X509: extra characters before cert weren't being removed
+  * ASN1: change how default values are processed for ints and enums
+  * RSA: OAEP decryption didn't check labels correctly
+
+  [ nickyb ]
+  * Support for continue auth methods.
+
+  [ danieljankowski ]
+  * ASN1: fix timezone issue when non-utc time is given
+
+ -- David Prévot <taffit@debian.org>  Fri, 18 Jun 2021 15:02:45 -0400
+
+php-phpseclib3 (3.0.8-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * cipher_name_openssl_ecb shouldn't be static because of AES
+  * AsymetrticKey: add getComment() method
+
+  [ Kyle ]
+  * Don't filter basicConstraints on unique values
+
+  [ Bastien Miclo ]
+  * Allow one to specify extension value as critical
+
+ -- David Prévot <taffit@debian.org>  Thu, 22 Apr 2021 09:27:30 -0400
+
+php-phpseclib3 (3.0.7-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * CHANGELOG: add 3.0.6 release [CVE-2021-30130]
+
+ -- David Prévot <taffit@debian.org>  Sat, 10 Apr 2021 08:20:21 -0400
+
+php-phpseclib3 (3.0.6-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * SFTP/Stream: make it so you can write past the end of a file
+  * SFTP: mkdir on streams didn't work
+  * BigInteger: fix issue with toBits on 32-bit PHP 8 installs
+  * SFTP: digit only filenames were converted to integers by php
+
+  [ David Prévot ]
+  * Generate phpabtpl at build time
+  * Drop Replace and Conflict since php-phpseclib 3 didn’t last long
+
+ -- David Prévot <taffit@debian.org>  Wed, 17 Mar 2021 07:35:42 -0400
+
+php-phpseclib3 (3.0.5-1) unstable; urgency=medium
+
+  * Upload to unstable now that the freeze started (no migration to testing
+    until Bookworm release cycle starts)
+
+  [ terrafrost ]
+  * BigInteger: big speedups for when OpenSSL is used
+  * RSA: use OpenSSL for generating private keys
+  * CHANGELOG: add 3.0.5 release
+
+  [ David Prévot ]
+  * Use dh-sequence-phpcomposer instead of pkg-php-tools
+
+ -- David Prévot <taffit@debian.org>  Sat, 13 Feb 2021 10:18:21 -0400
+
+php-phpseclib3 (3.0.4-1) experimental; urgency=medium
+
+  [ Tomáš Procházka ]
+  * Allow newer versions of paragonie/random_compat
+
+  [ terrafrost ]
+  * X509: fix niche issue with computeKeyIdentifier
+  * SSH/Agent: EC keys didn't work with agent
+
+  [ David Prévot ]
+  * Simplify gbp import-orig workflow
+
+ -- David Prévot <taffit@debian.org>  Sun, 31 Jan 2021 09:48:58 -0400
+
+php-phpseclib3 (3.0.3-1) experimental; urgency=medium
+
+  [ terrafrost ]
+  * CHANGELOG: add 3.0.3 release
+
+ -- David Prévot <taffit@debian.org>  Mon, 18 Jan 2021 13:15:10 -0400
+
+php-phpseclib3 (3.0.2-1~exp1) experimental; urgency=medium
+
+  * Rename version 3 as php-phpseclib3.
+    Upstream changed the classpath in order to allow one to install it along
+    with php-phpseclib (version 2). Both versions are supported upstream,
+    and packages depending of version 2 are unlikely to be ready to use
+    version 3 all together.
+  * Install /u/s/p/a/php-phpseclib3
+
+ -- David Prévot <taffit@debian.org>  Sun, 10 Jan 2021 10:01:15 -0400
+
+php-phpseclib (3.0.2-1) experimental; urgency=medium
+
+  * Upload new major version to experimental
+
+  [ terrafrost ]
+  * CHANGELOG: add 3.0.1 release
+
+  [ Paragon Initiative Enterprises ]
+  * Use paragonie/constant_time_encoding
+
+  [ David Prévot ]
+  * Drop phpcs call during test
+  * Adapt packaging to new dependencies
+  * Install version 3 in its own new path
+
+ -- David Prévot <taffit@debian.org>  Mon, 28 Dec 2020 22:31:54 -0400
+
+php-phpseclib (2.0.30-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * enable unit tests for PHP 8 / PHPUnit 9
+  * CHANGELOG: add 2.0.30 entry
+
+ -- David Prévot <taffit@debian.org>  Fri, 18 Dec 2020 23:36:42 -0400
+
+php-phpseclib (2.0.29-2) unstable; urgency=medium
+
+  * Adapt to recent version of PHPUnit (9)
+  * Fix field name case in debian/tests/control (Test-command => Test-Command).
+  * Update watch file format version to 4.
+  * Update Standards-Version to 4.5.1
+  * Drop versioned dependency satisfied in stable
+
+ -- David Prévot <taffit@debian.org>  Mon, 14 Dec 2020 11:50:06 -0400
+
+php-phpseclib (2.0.29-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * add 2.0.29 release
+
+  [ David Prévot ]
+  * Set upstream metadata fields: Archive.
+  * Rename main branch to debian/latest (DEP-14)
+
+ -- David Prévot <taffit@debian.org>  Tue, 08 Sep 2020 11:51:10 -0400
+
+php-phpseclib (2.0.28-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * 2.0.27 release
+  * CHANGELOG: there already was a 2.0.27 release..
+
+  [ David Prévot ]
+  * Set Rules-Requires-Root: no.
+  * Use debhelper-compat 13
+  * Simplify override_dh_auto_test
+
+ -- David Prévot <taffit@debian.org>  Thu, 09 Jul 2020 22:35:32 -0400
+
+php-phpseclib (2.0.27-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * CHANGELOG: add entries for 2.0.25 and 2.0.26 release notes
+
+ -- David Prévot <taffit@debian.org>  Mon, 06 Apr 2020 10:19:11 -1000
+
+php-phpseclib (2.0.26-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- David Prévot <taffit@debian.org>  Sun, 29 Mar 2020 10:22:34 -1000
+
+php-phpseclib (2.0.25-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * CHANGELOG: 2.0.24 release
+
+  [ David Prévot ]
+  * Set upstream metadata fields:
+    Bug-Database, Bug-Submit, Repository, Repository-Browse.
+  * Update Standards-Version to 4.5.0
+
+ -- David Prévot <taffit@debian.org>  Fri, 28 Feb 2020 09:50:37 -1000
+
+php-phpseclib (2.0.23-2) unstable; urgency=medium
+
+  * Revert "Update to current phpcs output"
+  * Build-Depend on recent php-codesniffer
+  * Set upstream metadata fields: Repository.
+  * Drop versioned dependency satisfied in (old)stable
+  * Update Standards-Version to 4.4.1
+
+ -- David Prévot <taffit@debian.org>  Mon, 30 Sep 2019 19:06:51 -1000
+
+php-phpseclib (2.0.23-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * SSH2: only do fclose($this->fsock) if doing so won't yield error
+  * CHANGELOG: add 2.0.23 release
+
+ -- David Prévot <taffit@debian.org>  Sat, 21 Sep 2019 17:11:46 -1000
+
+php-phpseclib (2.0.22-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * CHANGELOG: add 2.0.22 release
+
+ -- David Prévot <taffit@debian.org>  Mon, 16 Sep 2019 05:40:47 -1000
+
+php-phpseclib (2.0.21-3) unstable; urgency=medium
+
+  * Versioned php-codesniffer dependency to hint CI
+  * Remove obsolete fields Name, Contact from debian/upstream/metadata.
+
+ -- David Prévot <taffit@debian.org>  Thu, 29 Aug 2019 10:38:29 -1000
+
+php-phpseclib (2.0.21-2) unstable; urgency=medium
+
+  * Set upstream metadata fields: Contact, Name.
+  * Update to current phpcs output
+  * Compatibility with recent PHPUnit (8)
+
+ -- David Prévot <taffit@debian.org>  Mon, 12 Aug 2019 06:52:20 -1000
+
+php-phpseclib (2.0.21-1) unstable; urgency=medium
+
+  * Upload to unstable now that buster has been released
+
+  [ terrafrost ]
+  * update copyright years on license
+
+  [ David Prévot ]
+  * Update copyright (years)
+  * Update Standards-Version to 4.4.0
+
+ -- David Prévot <taffit@debian.org>  Fri, 19 Jul 2019 11:16:44 -0300
+
+php-phpseclib (2.0.20-1) experimental; urgency=medium
+
+  [ Remi Collet ]
+  * fix compat with 5.3
+
+ -- David Prévot <taffit@debian.org>  Tue, 25 Jun 2019 07:40:50 -1000
+
+php-phpseclib (2.0.19-1) experimental; urgency=medium
+
+  [ terrafrost ]
+  * SFTP: add callback parameter to get()
+  * BigInteger: fix issues with divide method
+
+ -- David Prévot <taffit@debian.org>  Thu, 20 Jun 2019 15:29:10 -1000
+
+php-phpseclib (2.0.18-1) experimental; urgency=medium
+
+  [ terrafrost ]
+  * 1.0.16 release
+
+ -- David Prévot <taffit@debian.org>  Sun, 16 Jun 2019 16:38:47 -1000
+
+php-phpseclib (2.0.17-1) experimental; urgency=medium
+
+  * Document gbp import-ref usage
+
+ -- David Prévot <taffit@debian.org>  Mon, 03 Jun 2019 14:40:29 -1000
+
+php-phpseclib (2.0.15-1) experimental; urgency=medium
+
+  * Upload to experimental during the freeze
+
+  [ terrafrost ]
+  * 1.0.15 release
+
+  [ David Prévot ]
+  * Use upstream git tag as source
+  * Adapt packaging to restored tests
+  * Adapt packaging to restored changelog
+  * Update copyright
+
+ -- David Prévot <taffit@debian.org>  Tue, 12 Mar 2019 21:32:36 -1000
+
+php-phpseclib (2.0.14-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * 1.0.14 release
+
+  [ David Prévot ]
+  * Use debhelper-compat 12
+  * Update Standards-Version to 4.3.0
+
+ -- David Prévot <taffit@debian.org>  Fri, 01 Feb 2019 13:47:35 -1000
+
+php-phpseclib (2.0.13-1) unstable; urgency=medium
+
+  [ Andreas Fischer ]
+  * README: Declare 2.0 branch as LTS. #1310
+
+ -- David Prévot <taffit@debian.org>  Fri, 21 Dec 2018 06:37:04 +1100
+
+php-phpseclib (2.0.12-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * 1.0.12 release
+
+  [ David Prévot ]
+  * Use debhelper-compat 11
+  * Use https in Format
+  * Drop get-orig-source target
+  * Use Standards-Version 4.2.1
+
+ -- David Prévot <taffit@debian.org>  Thu, 08 Nov 2018 20:44:45 +1300
+
+php-phpseclib (2.0.11-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * 1.0.11 release
+
+  [ David Prévot ]
+  * Update Standards-Version to 4.1.4
+
+ -- David Prévot <taffit@debian.org>  Tue, 24 Apr 2018 08:26:11 -1000
+
+php-phpseclib (2.0.10-1) unstable; urgency=medium
+
+  * Move project repository to salsa.d.o
+  * Update Standards-Version to 4.1.3
+
+ -- David Prévot <taffit@debian.org>  Wed, 07 Mar 2018 13:33:33 -1000
+
+php-phpseclib (2.0.9-1) unstable; urgency=medium
+
+  [ terrafrost ]
+  * 1.0.9 release
+
+  [ David Prévot ]
+  * Update Standards-Version to 4.1.2
+
+ -- David Prévot <taffit@debian.org>  Sun, 03 Dec 2017 06:17:21 -1000
+
+php-phpseclib (2.0.7-1) unstable; urgency=medium
+
+  * New upstream release
+  * Update Standards-Version to 4.1.1
+
+ -- David Prévot <taffit@debian.org>  Mon, 23 Oct 2017 15:35:16 -1000
+
+php-phpseclib (2.0.6-1) unstable; urgency=medium
+
+  * New upstream release
+  * Update Standards-Version to 4.0.0
+
+ -- David Prévot <taffit@debian.org>  Fri, 04 Aug 2017 22:30:19 -0400
+
+php-phpseclib (2.0.4-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- David Prévot <taffit@debian.org>  Thu, 20 Oct 2016 15:34:04 -1000
+
+php-phpseclib (2.0.3-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- David Prévot <taffit@debian.org>  Thu, 22 Sep 2016 15:09:52 -1000
+
+php-phpseclib (2.0.2-1) unstable; urgency=medium
+
+  [ Andreas Fischer ]
+  * Add bootstrap.php checking environment (MB_OVERLOAD_STRING).
+
+  [ David Prévot ]
+  * Load new bootstrap file
+  * Update Standards-Version to 3.9.8
+
+ -- David Prévot <taffit@debian.org>  Sun, 05 Jun 2016 16:16:47 -0400
+
+php-phpseclib (2.0.1-2) unstable; urgency=medium
+
+  * Drop ownCloud for Debian maintainers from uploaders
+  * Rebuild with recent pkg-php-tools for the PHP 7.0 transition
+    (Closes: #817272)
+
+ -- David Prévot <taffit@debian.org>  Wed, 09 Mar 2016 14:18:28 -0400
+
+php-phpseclib (2.0.1-1) unstable; urgency=medium
+
+  * Drop inadequate Replaces, Conflicts and Provides
+  * Rename version 2 as php-phpseclib.
+    Use the “proper” Composer name, and allow one to install it along with
+    php-seclib (version 1). Both versions are still supported, and various
+    packages still depending of version 1 are unlikely to be ready to use
+    version 2 in time for Stretch.
+  * Update Standards-Version to 3.9.7
+
+ -- David Prévot <taffit@debian.org>  Wed, 03 Feb 2016 14:34:47 -0400
+
+phpseclib (2.0.1-1) experimental; urgency=medium
+
+  [ Andreas Fischer ]
+  * Correct indentation on pvno array definition.
+
+  [ terrafrost ]
+  * composer.json: rm pear-pear/PHP_Compat
+  * CHANGELOG: add 1.0.1 changes
+
+  [ Michele Locati ]
+  * Exclude some dirs and files from repository auto-generated ZIP archives
+
+  [ Prayag Verma ]
+  * Update license year range to 2016
+
+  [ David Prévot ]
+  * Adapt packaging to removed tests
+  * Restore upstream changelog
+  * Update copyright
+  * Drop now useless override for php-compat
+
+ -- David Prévot <taffit@debian.org>  Mon, 18 Jan 2016 22:32:34 -0400
+
+phpseclib (2.0.0-1) experimental; urgency=medium
+
+  * Upload new 2. branch to experimental
+
+  [ Andreas Fischer ]
+  * Require PHP 5.3 in composer.json
+  * PHP 5.3+: Replace custom autoloader with composer autoloader.
+  * Add PSR4 namespace to composer.json.
+  * Add namespace statement. Rename class.
+
+  [ David Prévot ]
+  * Revert "Track the 1. branch"
+  * Adapt packaging to namespace change
+  * Update tests
+
+ -- David Prévot <taffit@debian.org>  Sat, 26 Sep 2015 17:47:29 -0400
+
+phpseclib (1.0.0-2) unstable; urgency=medium
+
+  * Upload 1. branch to unstable since no (negative) feedback was shared
+
+ -- David Prévot <taffit@debian.org>  Sat, 26 Sep 2015 16:42:01 -0400
+
+phpseclib (1.0.0-1) experimental; urgency=medium
+
+  * Upload 1. branch to experimental, so that it can be tested in advance
+
+  [ terrafrost ]
+  * update phpseclib to 1.0.0
+
+  [ Andreas Fischer ]
+  * Update PHP Code Sniffer to 2.3.3
+
+  [ David Prévot ]
+  * Track the 1. branch
+  * Handle Blowfish renaming at build time
+  * Revert "Drop phpcs call from tests"
+  * Update copyright (years)
+  * Use php5-mcrypt to pass more tests
+
+ -- David Prévot <taffit@debian.org>  Sun, 30 Aug 2015 18:24:32 -0400
+
+phpseclib (0.3.10-3) unstable; urgency=medium
+
+  * Provide php-math-biginteger (= 1.0.2+phpseclib), and also declare a
+    conflict (and replace) with it to document that they can’t be installed
+    together (Closes: #785281)
+  * Additional provides for php-phpseclib*
+
+ -- David Prévot <taffit@debian.org>  Sat, 16 May 2015 15:50:12 -0400
+
+phpseclib (0.3.10-2) unstable; urgency=medium
+
+  * Upload to unstable since Jessie has been released
+  * Provide homemade autoload.php
+  * Drop phpcs call from tests
+
+ -- David Prévot <taffit@debian.org>  Sat, 02 May 2015 13:11:14 -0400
+
+phpseclib (0.3.10-1) experimental; urgency=medium
+
+  * New upstream release
+
+ -- David Prévot <taffit@debian.org>  Mon, 09 Feb 2015 10:59:09 -0400
+
+phpseclib (0.3.9-1) experimental; urgency=medium
+
+  * Upload to experimental to respect the current freeze
+
+  [ terrafrost ]
+  * ASN1: fix issue with non-constructed context-specific tags
+  * BigInteger: accommodate GMP change in PHP 5.6
+  * SSH2: fix issues with RSA key verification
+  * add CHANGELOG.md
+
+  [ Andreas Fischer ]
+  * Restore compatibility with PHP 5.6.1 by using explicit array indexes.
+
+  [ David Prévot ]
+  * Drop now useless XS-Testsuite
+  * Bump standards version to 3.9.6
+  * Refresh patch header
+
+ -- David Prévot <taffit@debian.org>  Wed, 12 Nov 2014 15:54:30 -0400
+
+phpseclib (0.3.8-1) unstable; urgency=medium
+
+  * Install OpenSSL example configuration
+
+ -- David Prévot <taffit@debian.org>  Sun, 14 Sep 2014 11:31:44 -0400
+
+phpseclib (0.3.7-1) unstable; urgency=medium
+
+  * Grab source from GitHub
+  * Use phpcomposer build helper
+  * Update patch
+  * Update copyright
+  * Run tests during build
+  * Run more tests during build
+  * Add DEP-8 compliant tests
+
+ -- David Prévot <taffit@debian.org>  Wed, 23 Jul 2014 16:36:00 -0400
+
+phpseclib (0.3.6-1) unstable; urgency=medium
+
+  [ Hans-Jürgen Petrich ]
+  * Crypt_Base
+
+  [ Patrick Monnerat ]
+  * Add Crypt RC2 algorithm.
+
+  [ terrafrost ]
+  * SSH2: add ssh-agent support
+
+  [ David Prévot ]
+  * Add ownCloud for Debian to uploaders
+  * Bump standards version to 3.9.5
+  * Remove self from copyright holders
+  * Update copyright years
+  * Update patch, now handled via gbp pq
+  * Install new System/SSH_Agent.php file
+
+ -- David Prévot <taffit@debian.org>  Tue, 04 Mar 2014 08:31:38 -0300
+
+phpseclib (0.3.5-2) unstable; urgency=low
+
+  * Fix Crypt_Blowfish conflict
+  * Revert "Replace and provide php-crypt-blowfish"
+
+ -- David Prévot <taffit@debian.org>  Sun, 14 Jul 2013 11:04:49 -0400
+
+phpseclib (0.3.5-1) unstable; urgency=low
+
+  * New upstream version
+  * Use canonical Vcs- fields
+  * Update Description: add Blowfish and Twofish
+  * Replace and provide php-crypt-blowfish
+
+ -- David Prévot <taffit@debian.org>  Sat, 13 Jul 2013 17:57:40 -0400
+
+phpseclib (0.3.1-1) unstable; urgency=low
+
+  * Initial release. (Closes: #704700)
+
+ -- David Prévot <taffit@debian.org>  Thu, 04 Apr 2013 19:05:03 -0400

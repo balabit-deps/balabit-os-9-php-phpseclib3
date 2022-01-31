@@ -1,0 +1,2 @@
+debian/autoloaders	usr/share/pkg-php-tools
+phpseclib/*		usr/share/php/phpseclib3

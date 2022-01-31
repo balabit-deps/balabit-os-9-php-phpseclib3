@@ -1,0 +1,20 @@
+From: =?utf-8?q?David_Pr=C3=A9vot?= <taffit@debian.org>
+Date: Mon, 11 Mar 2019 21:49:07 -1000
+Subject: Drop test requiring network access
+
+---
+ tests/Unit/File/X509/X509Test.php | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/tests/Unit/File/X509/X509Test.php b/tests/Unit/File/X509/X509Test.php
+index cb67ed4..78c1127 100644
+--- a/tests/Unit/File/X509/X509Test.php
++++ b/tests/Unit/File/X509/X509Test.php
+@@ -679,7 +679,6 @@ M0qaEPsM2o3CSTfxSJQQIyEe+izV3UQqYSyWkNqCCFPN
+         $this->assertFalse($x509->validateSignature());
+ 
+         X509::setRecurLimit(5);
+-        $this->assertTrue($x509->validateSignature());
+     }
+ 
+     public function testValidateDate()

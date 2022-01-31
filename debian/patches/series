@@ -1,0 +1,4 @@
+0001-Use-homemade-autoload.php.patch
+0002-Drop-test-requiring-network-access.patch
+0003-Compatibility-with-recent-PHPUnit-8.patch
+0004-Skip-test-failing-on-32-bit-architectures.patch

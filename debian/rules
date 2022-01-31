@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+%:
+	dh $@
+
+override_dh_auto_build:
+	phpabtpl \
+		--basedir phpseclib \
+		composer.json \
+		> debian/autoload.php.tpl
+	phpab \
+		--output phpseclib/autoload.php \
+		--template debian/autoload.php.tpl \
+		phpseclib
+	mkdir --parents vendor
+	phpabtpl \
+		--require phpseclib/phpseclib \
+		> debian/autoload.tests.php.tpl
+	phpab \
+		--output vendor/autoload.php \
+		--template debian/autoload.tests.php.tpl \
+	tests
+	ln -s phpseclib phpseclib3
+
+override_dh_auto_test:
+	phpunit --bootstrap vendor/autoload.php

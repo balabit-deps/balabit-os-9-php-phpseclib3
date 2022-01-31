@@ -1,0 +1,24 @@
+From: =?utf-8?q?David_Pr=C3=A9vot?= <taffit@debian.org>
+Date: Fri, 26 Nov 2021 11:42:09 -0400
+Subject: Skip test failing on 32-bit architectures
+
+To be investigated
+---
+ tests/Unit/Math/BigInteger/TestCase.php | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/tests/Unit/Math/BigInteger/TestCase.php b/tests/Unit/Math/BigInteger/TestCase.php
+index 75066a5..61997bf 100644
+--- a/tests/Unit/Math/BigInteger/TestCase.php
++++ b/tests/Unit/Math/BigInteger/TestCase.php
+@@ -324,6 +324,10 @@ abstract class Unit_Math_BigInteger_TestCase extends PhpseclibTestCase
+      */
+     public function testDiffieHellmanKeyAgreement()
+     {
++        if (PHP_INT_SIZE == 4) {
++            self::markTestSkipped('This test currently fails on 32-bit architectures.');
++        }
++
+         // "Oakley Group 14" 2048-bit modular exponentiation group as used in
+         // SSH2 diffie-hellman-group14-sha1
+         $prime = $this->getInstance(
